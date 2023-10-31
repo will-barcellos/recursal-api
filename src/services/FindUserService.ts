@@ -4,9 +4,9 @@ type UserRequest = {
     username: string
 }
 
-export class findUserService {
+export class FindUserService {
     async execute({username}: UserRequest) {
-        const user = await prisma.user.findFirst({
+        const user = await prisma.user.findMany({
             where: {
                 username
             },
