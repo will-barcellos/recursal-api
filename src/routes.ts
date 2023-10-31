@@ -8,7 +8,7 @@ const router = Router()
 const createUserController = new CreateUserController
 const authenticateUserController = new AuthenticateUserController
 
-router.post('/user', createUserController.handle)
+router.post('/user', ensureAuthenticated, createUserController.handle)
 router.post('/login', authenticateUserController.handle)
 
 // Teste
