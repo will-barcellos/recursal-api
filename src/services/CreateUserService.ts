@@ -1,5 +1,4 @@
 import { hash } from "bcrypt";
-import { Request, Response } from "express";
 import { prisma } from "../database/database";
 
 type UserRequest = {

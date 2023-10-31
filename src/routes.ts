@@ -1,24 +1,17 @@
 import { Router } from "express";
-import { CreateUserController } from "./controllers/CreateUserController";
 import { AuthenticateUserController } from "./controllers/AuthenticateUserController";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
+import { CreateUserController } from "./controllers/CreateUserController";
+import { FindUserController } from "./controllers/FindUserController";
 
 const router = Router()
 
-const createUserController = new CreateUserController
 const authenticateUserController = new AuthenticateUserController
+const createUserController = new CreateUserController
+const findUserController = new FindUserController
 
-router.post('/user', ensureAuthenticated, createUserController.handle)
 router.post('/login', authenticateUserController.handle)
-
-// Teste
-router.get('/clients', ensureAuthenticated,(request, response) => {
-    return response.json([
-        {id: 1, name: "João"},
-        {id: 2, name: "Carlos"},
-        {id: 3, name: "Maria"},
-        {id: 4, name: "Claudia"},
-    ])
-})
+router.post('/user', ensureAuthenticated, createUserController.handle)
+router.get('/user', ensureAuthenticated ,findUserController.handle)
 
 export { router }
