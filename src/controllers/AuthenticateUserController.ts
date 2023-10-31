@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { SessionService } from "../services/SessionService";
+import { AuthenticateUserService } from "../services/AuthenticateUserService";
 
 export class AuthenticateUserController {
     async handle(request: Request, response: Response) {
         const { username, password } = request.body
         
-        const sessionService = new SessionService()
+        const sessionService = new AuthenticateUserService()
         const token = await sessionService.execute({
             username,
             password

@@ -7,7 +7,7 @@ type UserRequest = {
     password: string
 }
 
-export class SessionService {
+export class AuthenticateUserService {
     async execute({username, password}: UserRequest) {
         const UserAlreadyExist = await prisma.user.findFirst({
             where: {
@@ -16,7 +16,7 @@ export class SessionService {
         })
 
         if (!UserAlreadyExist) {
-            throw new Error('User does not exists!')
+            throw new Error('User or password incorrect!')
         }
 
         const passwordMatch = await compare(password, UserAlreadyExist.password)
