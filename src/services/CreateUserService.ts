@@ -19,7 +19,7 @@ export class CreateUserService {
         })
 
         if (UserAlreadyExist) {
-            return new Error('User already exists!')
+            throw new Error('User already exists!')
         }
 
         const passwordHash = await hash(password, 8)

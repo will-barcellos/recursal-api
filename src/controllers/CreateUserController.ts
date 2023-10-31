@@ -12,6 +12,12 @@ export class CreateUserController {
             password, 
             email
         })
+        
+        if (user instanceof Error) {
+            return response.status(400).json(user.message)
+        }
+
         return response.json(user)
+        
     }
 }
