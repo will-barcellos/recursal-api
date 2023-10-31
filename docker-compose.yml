@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    db-recursal:
+        image: postgres
+        container_name: db-recursal
+        restart: always
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=admin
+            - POSTGRES_DB=db-recursal
+        volumes:
+            - pgdata:/data/postgres
+
+volumes:
+    pgdata:
+        driver: local
