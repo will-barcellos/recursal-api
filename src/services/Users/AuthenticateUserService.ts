@@ -1,6 +1,6 @@
 import { compare } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
-import { prisma } from '../database/database'
+import { prisma } from '../../database/database'
 
 type UserRequest = {
   email: string
@@ -26,7 +26,7 @@ export class AuthenticateUserService {
 
     const token = sign({}, '7c9025f1-dbef-4aba-b816-40ad7c5a6d59', {
       subject: userExist.id,
-      expiresIn: '1d',
+      expiresIn: '7d',
     })
 
     return token

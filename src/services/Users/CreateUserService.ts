@@ -1,5 +1,5 @@
 import { hash } from 'bcrypt'
-import { prisma } from '../database/database'
+import { prisma } from '../../database/database'
 
 type UserRequest = {
   name: string

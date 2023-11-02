@@ -1,4 +1,4 @@
-import { prisma } from '../database/database'
+import { prisma } from '../../database/database'
 
 type UserRequest = {
   email: string

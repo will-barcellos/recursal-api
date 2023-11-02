@@ -1,6 +1,6 @@
-import { prisma } from '../database/database'
+import { prisma } from '../../database/database'
 
-export class FindUserService {
+export class ReadUserService {
   async execute() {
     const user = await prisma.user.findMany({
       select: {

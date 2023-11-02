@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { AuthenticateUserService } from '../services/AuthenticateUserService'
+import { AuthenticateUserService } from '../../services/Users/AuthenticateUserService'
 
 export class AuthenticateUserController {
   async handle(request: Request, response: Response) {
