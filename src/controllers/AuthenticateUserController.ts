@@ -3,13 +3,13 @@ import { AuthenticateUserService } from '../services/AuthenticateUserService'
 
 export class AuthenticateUserController {
   async handle(request: Request, response: Response) {
-    const { username, password } = request.body
+    const { email, password } = request.body
 
     const sessionService = new AuthenticateUserService()
 
     try {
       const token = await sessionService.execute({
-        username,
+        email,
         password,
       })
       return response.status(200).json(token)

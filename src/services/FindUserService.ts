@@ -6,7 +6,6 @@ export class FindUserService {
       select: {
         id: false,
         name: true,
-        username: true,
         password: false,
         email: true,
         createdAt: false,

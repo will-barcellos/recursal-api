@@ -3,12 +3,12 @@ import { DeleteUserService } from '../services/DeleteUserService'
 
 export class DeleteUserController {
   async handle(request: Request, response: Response) {
-    const { username } = request.body
+    const { email } = request.body
 
     const deleteUserService = new DeleteUserService()
     try {
       await deleteUserService.execute({
-        username,
+        email,
       })
       return response.status(200).json('Record deleted successfully!')
     } catch (err: any) {

@@ -3,18 +3,17 @@ import { sign } from 'jsonwebtoken'
 import { prisma } from '../database/database'
 
 type UserRequest = {
-  username: string
+  email: string
   password: string
 }
 
 export class AuthenticateUserService {
-  async execute({ username, password }: UserRequest) {
-    const userExist = await prisma.user.findFirst({
+  async execute({ email, password }: UserRequest) {
+    const userExist = await prisma.user.findUnique({
       where: {
-        username,
+        email,
       },
     })
-
     if (!userExist) {
       throw new Error('Invalid Credentials!')
     }

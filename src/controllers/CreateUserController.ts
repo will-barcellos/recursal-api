@@ -10,13 +10,12 @@ export class CreateUserController {
     try {
       await createUSerService.execute({
         name,
-        username,
         password,
         email,
       })
       return response.status(200).json('Record created successfully!')
     } catch (err: any) {
-      return response.status(400).json(err.message)
+      return response.status(409).json(err.message)
     }
   }
 }

@@ -1,24 +1,24 @@
 import { prisma } from '../database/database'
 
 type UserRequest = {
-  username: string
+  email: string
 }
 
 export class DeleteUserService {
-  async execute({ username }: UserRequest) {
-    const UserDoesNotExist = await prisma.user.findFirst({
+  async execute({ email }: UserRequest) {
+    const emailDoesNotExist = await prisma.user.findUnique({
       where: {
-        username,
+        email,
       },
     })
 
-    if (!UserDoesNotExist) {
+    if (!emailDoesNotExist) {
       throw new Error('Record does not exists!')
     }
 
     const User = prisma.user.delete({
       where: {
-        username,
+        email,
       },
     })
 

@@ -3,21 +3,20 @@ import { prisma } from '../database/database'
 
 type UserRequest = {
   name: string
-  username: string
   password: string
   email: string
 }
 
 export class CreateUserService {
-  async execute({ name, username, password, email }: UserRequest) {
+  async execute({ name, password, email }: UserRequest) {
     const userExist = await prisma.user.findFirst({
       where: {
-        username,
+        email,
       },
     })
 
     if (userExist) {
-      throw new Error('Record already exists!')
+      throw new Error('This email is already associated with an account!')
     }
 
     const passwordHash = await hash(password, 8)
@@ -25,7 +24,6 @@ export class CreateUserService {
     const User = prisma.user.create({
       data: {
         name,
-        username,
         password: passwordHash,
         email,
       },
