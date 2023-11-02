@@ -3,17 +3,13 @@ import { FindUserService } from '../services/FindUserService'
 
 export class FindUserController {
   async handle(request: Request, response: Response) {
-    const { username } = request.body
-
     const findUserController = new FindUserService()
-    const user = await findUserController.execute({
-      username,
-    })
 
-    if (user instanceof Error) {
-      return response.status(400).json(user.message)
+    try {
+      const user = await findUserController.execute()
+      return response.status(200).json(user)
+    } catch (err: any) {
+      return response.status(400).json(err.message)
     }
-
-    return response.json(user)
   }
 }

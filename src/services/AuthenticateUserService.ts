@@ -9,27 +9,27 @@ type UserRequest = {
 
 export class AuthenticateUserService {
   async execute({ username, password }: UserRequest) {
-    const UserAlreadyExist = await prisma.user.findFirst({
+    const userExist = await prisma.user.findFirst({
       where: {
         username,
       },
     })
 
-    if (!UserAlreadyExist) {
-      throw new Error('User or password incorrect!')
+    if (!userExist) {
+      throw new Error('Invalid Credentials!')
     }
 
-    const passwordMatch = await compare(password, UserAlreadyExist.password)
+    const passwordCompare = await compare(password, userExist.password)
 
-    if (!passwordMatch) {
-      throw new Error('User or password incorrect')
+    if (!passwordCompare) {
+      throw new Error('Invalid Credentials!')
     }
 
     const token = sign({}, '7c9025f1-dbef-4aba-b816-40ad7c5a6d59', {
-      subject: UserAlreadyExist.id,
+      subject: userExist.id,
       expiresIn: '1d',
     })
 
-    return { token }
+    return token
   }
 }

@@ -6,15 +6,15 @@ export class AuthenticateUserController {
     const { username, password } = request.body
 
     const sessionService = new AuthenticateUserService()
-    const token = await sessionService.execute({
-      username,
-      password,
-    })
 
-    if (token instanceof Error) {
-      return response.status(400).json(token.message)
+    try {
+      const token = await sessionService.execute({
+        username,
+        password,
+      })
+      return response.status(200).json(token)
+    } catch (err: any) {
+      return response.status(401).json(err.message)
     }
-
-    return response.json(token)
   }
 }

@@ -10,14 +10,14 @@ type UserRequest = {
 
 export class CreateUserService {
   async execute({ name, username, password, email }: UserRequest) {
-    const UserAlreadyExist = await prisma.user.findFirst({
+    const userExist = await prisma.user.findFirst({
       where: {
         username,
       },
     })
 
-    if (UserAlreadyExist) {
-      throw new Error('User already exists!')
+    if (userExist) {
+      throw new Error('Record already exists!')
     }
 
     const passwordHash = await hash(password, 8)

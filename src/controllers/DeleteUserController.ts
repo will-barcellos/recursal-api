@@ -6,14 +6,13 @@ export class DeleteUserController {
     const { username } = request.body
 
     const deleteUserService = new DeleteUserService()
-    const user = await deleteUserService.execute({
-      username,
-    })
-
-    if (user instanceof Error) {
-      return response.status(400).json(user.message)
+    try {
+      await deleteUserService.execute({
+        username,
+      })
+      return response.status(200).json('Record deleted successfully!')
+    } catch (err: any) {
+      return response.status(400).json(err.message)
     }
-
-    return response.json(user)
   }
 }

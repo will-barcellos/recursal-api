@@ -1,15 +1,8 @@
 import { prisma } from '../database/database'
 
-type UserRequest = {
-  username: string
-}
-
 export class FindUserService {
-  async execute({ username }: UserRequest) {
+  async execute() {
     const user = await prisma.user.findMany({
-      where: {
-        username,
-      },
       select: {
         id: false,
         name: true,
@@ -22,7 +15,7 @@ export class FindUserService {
     })
 
     if (!user) {
-      throw new Error('User does not exists!')
+      throw new Error('Records does not exists!')
     }
 
     return user

@@ -6,17 +6,17 @@ export class CreateUserController {
     const { name, username, password, email } = request.body
 
     const createUSerService = new CreateUserService()
-    const user = await createUSerService.execute({
-      name,
-      username,
-      password,
-      email,
-    })
 
-    if (user instanceof Error) {
-      return response.status(400).json(user.message)
+    try {
+      await createUSerService.execute({
+        name,
+        username,
+        password,
+        email,
+      })
+      return response.status(200).json('Record created successfully!')
+    } catch (err: any) {
+      return response.status(400).json(err.message)
     }
-
-    return response.json(user)
   }
 }
